@@ -1,0 +1,4 @@
+name: AeroEngine
+version: '1.0-Beta'
+main: dev.funayd.aeroEngine.AeroEnginePlugin
+api-version: '1.20'
