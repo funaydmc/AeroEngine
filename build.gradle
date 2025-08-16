@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'dev.funayd'
-version = '1.0-Beta'
+group = "com.github.funaydmc"
+version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -61,19 +61,8 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            groupId = project.group
-            artifactId = 'AeroEngine'
-            version = project.version
-        }
-    }
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri("https://maven.pkg.github.com/funaydmc/AeroEngine")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-            }
+            artifactId = "aeroengine"
         }
     }
 }
+
