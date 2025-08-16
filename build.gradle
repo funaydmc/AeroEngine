@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id("com.gradleup.shadow") version "8.3.3"
 }
 
 group = "com.github.funaydmc"
@@ -17,35 +18,29 @@ repositories {
         url = "https://repo.commandapi.jorel.dev/"
     }
     maven {
-        name = "placeholderapi-repo"
         url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
     }
 }
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
-    implementation("dev.jorel:commandapi-bukkit-shade:9.6.0")
-
+    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:10.1.2")
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
+tasks.withType(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    relocate("dev.jorel.commandapi", "com.github.funaydmc.aeroEngine.lib.commandapi")
+}
 
-def targetJavaVersion = 17
+build.dependsOn shadowJar
+
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release.set(targetJavaVersion)
-    }
 }
 
 processResources {
@@ -62,7 +57,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             artifactId = "aeroengine"
+            artifact shadowJar.archiveFile.get()
         }
     }
 }
-

@@ -17,8 +17,6 @@ import java.util.function.Function;
 
 /**
  * Serializes and deserializes configuration data into objects and fields
- *
- * @author Redempt
  */
 public class ConfigManager {
 

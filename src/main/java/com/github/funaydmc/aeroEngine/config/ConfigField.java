@@ -8,8 +8,6 @@ import java.util.List;
 
 /**
  * Wraps a Field and stores the name which should be used to store its value in config
- *
- * @author Redempt
  */
 public class ConfigField {
 

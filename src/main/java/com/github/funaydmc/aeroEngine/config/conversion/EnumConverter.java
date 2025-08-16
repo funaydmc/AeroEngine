@@ -2,8 +2,6 @@ package com.github.funaydmc.aeroEngine.config.conversion;
 
 /**
  * A converter which converts enum values
- *
- * @author Redempt
  */
 public class EnumConverter {
 
