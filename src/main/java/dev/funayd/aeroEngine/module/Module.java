@@ -22,8 +22,11 @@ public abstract class Module {
         this.plugin = plugin;
     }
 
-
-
+    /**
+     * Enables this module, loading configuration and enabling submodules.
+     * Calls {@link #onEnable()} for custom enable logic.
+     * Handles exceptions and logs errors.
+     */
     public void enable() {
         try {
             if (configManagers != null) {
@@ -44,6 +47,11 @@ public abstract class Module {
         }
     }
 
+    /**
+     * Disables this module and all submodules, unregisters listeners.
+     * Calls {@link #onDisable()} for custom disable logic.
+     * Handles exceptions and logs errors.
+     */
     public void disable() {
         try {
             if (subModules != null) {
@@ -60,11 +68,22 @@ public abstract class Module {
         }
     }
 
+    /**
+     * Returns a unique {@link NamespacedKey} for this module, using the plugin and class name.
+     * @return the namespaced key for this module
+     */
     public NamespacedKey getKey() {
         return new NamespacedKey(plugin, this.getClass().getSimpleName().toLowerCase());
     }
 
+    /**
+     * Called when the module is enabled. Implement custom enable logic here.
+     */
     public abstract void onEnable();
+
+    /**
+     * Called when the module is disabled. Implement custom disable logic here.
+     */
     public abstract void onDisable();
 
     public void addConfig(ConfigManager configManager) {
