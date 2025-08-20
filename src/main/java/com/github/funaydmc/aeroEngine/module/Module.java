@@ -1,9 +1,9 @@
 package com.github.funaydmc.aeroEngine.module;
 
+import com.github.funaydmc.aeroEngine.AeroPlugin;
 import com.github.funaydmc.aeroEngine.config.ConfigManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -11,13 +11,13 @@ import java.util.function.Consumer;
 public abstract class Module {
 
     protected static Module instance;
-    protected final Plugin plugin;
+    protected final AeroPlugin plugin;
     protected boolean enabled = false;
     protected List<ConfigManager> configManagers;
     protected List<EventListener<?>> listeners;
     protected List<Module> subModules;
 
-    public Module(Plugin plugin) {
+    public Module(AeroPlugin plugin) {
         instance = this;
         this.plugin = plugin;
     }
@@ -131,7 +131,7 @@ public abstract class Module {
         return configManagers;
     }
 
-    public Plugin getPlugin() {
+    public AeroPlugin getPlugin() {
         return plugin;
     }
 
